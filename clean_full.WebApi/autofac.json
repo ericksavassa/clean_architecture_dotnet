@@ -1,0 +1,21 @@
+﻿{
+  "defaultAssembly": "clean_full.Infrastructure",
+  "modules": [
+    {
+      "type": "clean_full.Infrastructure.Modules.WebApiModule",
+      "properties": {
+      }
+    },
+    {
+      "type": "clean_full.Infrastructure.Modules.ApplicationModule",
+      "properties": {
+      }
+    },
+    {
+      "type": "clean_full.Infrastructure.DapperDataAccess.Module",
+      "properties": {
+        "ConnectionString": "Server=(LocalDB)\\MSSQLLocalDB;Database=clean_fullDb;Integrated Security=true;"
+      }
+    }
+  ]
+}
