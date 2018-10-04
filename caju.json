@@ -1,0 +1,10 @@
+{
+	"origin": "https://github.com/ivanpaulovich/clean_full/",
+	"architecture-style": "architecture-style",		
+	"use-cases": "full",
+	"user-interface": "webapi",
+	"data-access": "dapper",
+	"tips": "True",
+	"skip-restore": "True",
+	"service-bus": "service-bus"
+}
