@@ -111,7 +111,7 @@ namespace clean_full.WebApi.UseCases.Test
         /// limitation:
         ///     Type.GetType use AssmblyQulifiedName: "ns.type, ns". not include version info, "type" part not include "."
         /// </summary>
-        /// <param name="name">type or instance object name</param>
+        /// <param name="type_name">type or instance object name</param>
         /// <returns></returns>
         internal Type QueryStaticType(string type_name)
         {
