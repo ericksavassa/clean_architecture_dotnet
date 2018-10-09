@@ -4,6 +4,6 @@
     {
         internal InvalidSSNException(string message)
             : base(message)
-        { }
+        { } 
     }
 }
