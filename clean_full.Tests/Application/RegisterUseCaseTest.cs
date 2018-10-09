@@ -1,5 +1,6 @@
 using clean_full.Application.Repositories;
 using clean_full.Application.UseCases.Register;
+using clean_full.Domain;
 using clean_full.Domain.Accounts;
 using clean_full.Domain.Customers;
 using Moq;
@@ -41,6 +42,51 @@ namespace clean_full.Tests.Application
             _accountWriteOnlyRepository.Verify(v => v.Add(It.IsAny<Account>(), It.IsAny<Credit>()), Times.Once());
             Assert.Equal(outPut.Customer.Name, name);
             Assert.Equal(outPut.Account.CurrentBalance, amount);
+        }
+
+        [Fact]
+        public async Task Register_InvalidSSN_ShouldThrowAnDomainException()
+        {
+            //ARRANGE
+            string name = "Customer Name Test";
+            string pin = "abc";
+            double amount = 10;
+
+            //ACT
+            async Task<RegisterOutput> function() => await registerUseCase.Execute(pin, name, amount);
+
+            //ASSERT
+            await Assert.ThrowsAnyAsync<DomainException>(function);
+        }
+
+        [Fact]
+        public async Task Register_EmptySSN_ShouldThrowASSNShouldNotBeEmptyException()
+        {
+            //ARRANGE
+            var pin = string.Empty;
+            string name = "Customer Name Test";
+            double amount = 10;
+
+            //ACT
+            async Task<RegisterOutput> function() => await registerUseCase.Execute(pin, name, amount);
+
+            //ASSERT
+            await Assert.ThrowsAnyAsync<clean_full.Domain.ValueObjects.SSNShouldNotBeEmptyException>(function);
+        }
+
+        [Fact]
+        public async Task Register_EmptySSN_ShouldThrowANameShouldNotBeEmptyException()
+        {
+            //ARRANGE
+            var name = string.Empty;
+            var pin = "0101010000";
+            double amount = 10;
+
+            //ACT
+            async Task<RegisterOutput> function() => await registerUseCase.Execute(pin, name, amount);
+
+            //ASSERT
+            await Assert.ThrowsAnyAsync<clean_full.Domain.ValueObjects.NameShouldNotBeEmptyException>(function);
         }
     }
 }

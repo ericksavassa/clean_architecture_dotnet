@@ -44,7 +44,7 @@ namespace clean_full.Tests.Application
         }
 
         [Fact]
-        public async Task Withdraw_AccountWithouValues_ShouldThrowAnError()
+        public async Task Withdraw_AccountWithoutValues_ShouldThrowAnInsuficientFundsException()
         {
             //ARRANGE
             var customerId = Guid.NewGuid();
@@ -62,7 +62,7 @@ namespace clean_full.Tests.Application
         }
 
         [Fact]
-        public async Task Withdraw_AccountNotFound_ShouldThrowAnException()
+        public async Task Withdraw_AccountNotFound_ShouldThrowAnApplicationException()
         {
             //ARRANGE
             var accountId = Guid.NewGuid();

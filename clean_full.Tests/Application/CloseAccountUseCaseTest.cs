@@ -1,6 +1,8 @@
 using clean_full.Application.Repositories;
 using clean_full.Application.UseCases.CloseAccount;
+using clean_full.Domain;
 using clean_full.Domain.Accounts;
+using clean_full.Domain.ValueObjects;
 using Moq;
 using System;
 using System.Threading.Tasks;
@@ -56,6 +58,24 @@ namespace clean_full.Tests.Application
 
             //ASSERT
             await Assert.ThrowsAnyAsync<clean_full.Application.ApplicationException>(function);
+        }
+
+        [Fact]
+        public async Task ClosedAccount_AccountWithBalance_ShouldThrowADomainException()
+        {
+            //ARRANGE
+            var customerId = Guid.NewGuid();
+            var account = new Account(customerId);
+            var amount = new Amount(10);
+            account.Deposit(amount);
+
+            _accountReadOnlyRepository.Setup(p => p.Get(customerId)).Returns(Task.FromResult(account));
+
+            //ACT
+            async Task<Guid> function() => await closedAccountUseCase.Execute(customerId);
+
+            //ASSERT
+            await Assert.ThrowsAnyAsync<DomainException>(function);
         }
     }
 }

@@ -37,6 +37,7 @@ namespace clean_full.Tests.Application
             //ASSERT
             _accountReadOnlyRepository.Verify(v => v.Get(account.Id), Times.Once());
             Assert.Equal(account.Id, outPut.AccountId);
+            Assert.NotEmpty(outPut.Transactions);
         }
 
         [Fact]
